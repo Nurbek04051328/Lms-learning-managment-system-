@@ -1,6 +1,7 @@
 <script setup>
 import  { computed } from 'vue';
 import { useRoute } from 'vue-router';
+import { Toaster } from "vue-sonner";
 
 import AuthLayout from "./layouts/AuthLayout.vue";
 
@@ -17,6 +18,10 @@ const currentLayout = computed(() => {
 </script>
 
 <template>
+  <Toaster
+    position="top-right"
+    richColors
+  />
   <component :is="currentLayout">
     <RouterView />
   </component>

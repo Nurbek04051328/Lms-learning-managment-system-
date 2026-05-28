@@ -1,6 +1,9 @@
 <template>
   <div class="bg-[#dddbdb] w-[100vw] h-[100vh] flex items-center justify-center gap-3">
-    <form class="w-[90%] md:w-200 h-150 bg-white shadow-xl rounded-2xl flex">
+    <form 
+      @submit.prevent="onSubmit"
+      class="w-[90%] md:w-200 h-150 bg-white shadow-xl rounded-2xl flex"
+    >
       <!-- left -->
       <div
         class="md:w-[50%] w-[100%] h-[100%] flex flex-col items-center justify-center gap-3"
@@ -9,8 +12,139 @@
           <h1 class="font-semibold text-black text-2xl">let's get started</h1>
           <h2 class="text-[#999797] text-[18px]">Create your account</h2>
         </div>
-        <div class="flex flex-col gap-1 w-[80%] items-start justify-center px-3">
-          <label for=""></label>
+        <BaseInput
+          v-model="name"
+          label="Name"
+          className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
+          placeholder="Enter your name"
+          :error="nameError"
+        />
+        <BaseInput
+          v-model="email"
+          label="Email"
+          className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
+          placeholder="Enter your email"
+          :error="emailError"
+        />
+        <basePassword
+          v-model="password"
+          label="Password"
+          className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
+          placeholder="Enter your password"
+          :error="passwordError"
+        />
+        <!-- <div class="flex flex-col gap-1 w-[80%] items-start justify-center px-3">
+          <label htmlFor="name" class="font-semibold"> Name</label>
+          <input
+            v-model="formData.name"
+            type="text"
+            id="name"
+            class="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px]"
+            placeholder="Enter your name"
+          />
+        </div> -->
+        <!-- <div class="flex flex-col gap-1 w-[80%] items-start justify-center px-3">
+          <label htmlFor="email" class="font-semibold"> Email</label>
+          <input
+            v-model="formData.email"
+            type="email"
+            id="email"
+            class="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px]"
+            placeholder="Enter your email"
+          />
+        </div> -->
+        <!-- <div class="flex flex-col gap-1 w-[80%] items-start justify-center px-3 relative">
+          <label htmlFor="password" class="font-semibold"> Password</label>
+          <input
+            v-model="formData.password"
+            :type="showpassword ? 'text' : 'password'"
+            id="password"
+            class="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px]"
+            placeholder="Enter your password"
+          />
+          <i 
+            :class="showpassword ? 'pi pi-eye-slash' : 'pi pi-eye'" @click="showpassword = !showpassword" 
+            class="absolute  cursor-pointer right-[20px] bottom-[10%]"
+          ></i>
+        </div> -->
+        <div class="flex md:w-[50%] w-[70%] items-center justify-between">
+          <button
+            type="button"
+            @click="role = 'student'"
+            class="px-[10px] py-[5px] border-[2px] rounded-xl cursor-pointer"
+            :class="
+              role === 'student'
+                ? 'border-black  text-black'
+                : 'border-[#e7e6e6]'
+            "
+          >
+            Student
+          </button>
+          <button
+            type="button"
+            @click="role = 'educator'"
+            class="px-[10px] py-[5px] border-[2px] rounded-xl cursor-pointer"
+            :class="
+              role === 'educator'
+                ? 'border-black  text-black'
+                : 'border-[#e7e6e6]'
+            "
+          >
+            Educator
+          </button>
+          <!-- <span 
+            @click="selectRole('student')"
+            :class="
+              selectedRole === 'student'
+                ? 'border-black  text-black'
+                : 'border-[#e7e6e6]'
+            "
+            class="px-[10px] py-[5px] border-[2px] rounded-xl cursor-pointer"
+          >
+            Student
+          </span>
+          <span  
+            @click="selectRole('educator')"
+            :class="
+              selectedRole === 'educator'
+                ? 'border-black  text-black'
+                : 'border-[#e7e6e6]'
+            "
+            class="px-[10px] py-[5px] border-[2px] rounded-xl cursor-pointer"
+          >
+            Educator
+          </span> -->
+        </div>
+
+        <!-- <button
+          type="submit"
+          :disabled="loading"
+          class="w-[80%] h-[40px] bg-black text-white cursor-pointer flex items-center justify-center rounded-[5px]"
+        >
+          {{ loading ? 'Loading...' : 'Sign Up' }}
+        </button> -->
+        <BaseButton
+          type="submit"
+          text="Sign Up"
+          :loading="loading"
+          className="w-[80%] h-[40px] bg-black text-white cursor-pointer flex items-center justify-center rounded-md"
+        />
+        <div class="w-[80%] flex items-center gap-2">
+          <div class="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
+          <div class="w-[50%] text-[15px] text-[#6f6f6f] flex items-center justify-center">Or continue</div>
+          <div class="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
+        </div>
+        <div class="w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center">
+          <img src="../../../assets/google.jpg" alt="Google" class="w-[25px]" />
+          <span class="text-[18px] text-gray-500">oogle</span>
+        </div>
+        <div class="text-[#6f6f6f]">already have an account? 
+          <router-link 
+            to="/login" 
+            class="underline underline-offset-1 text-black"
+          >
+            Login
+          </router-link>
         </div>
       </div>
       <!-- right -->
@@ -25,7 +159,52 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, reactive } from 'vue';
+import { useRouter } from "vue-router";
+import { useField } from "vee-validate";
 
+import BaseInput from "../../../components/ui/BaseInput.vue";
+import BasePassword from "../../../components/ui/BasePassword.vue";
+import BaseButton from "../../../components/ui/BaseButton.vue";
+
+import { useRegisterForm } from "../composables/useRegisterForm";
+import { useAuth } from "../../auth/composables/useAuth";
+import { useToast } from '../../../composables/useToast.js';
+
+const router = useRouter();
+const toast = useToast();
+
+const { handleSubmit } = useRegisterForm();
+const { register, loading } = useAuth();
+const { 
+  value: name,
+  errorMessage: nameError,
+} = useField("name");
+const { 
+  value: email,
+  errorMessage: emailError,
+} = useField("email");
+const { 
+  value: password,
+  errorMessage: passwordError,
+} = useField("password");
+const {
+  value: role,
+} = useField("role");
+
+
+const onSubmit = handleSubmit(
+  async (values) => {
+    try {
+      await register(values);
+      router.push("/");
+      toast.success("SignUp Successfully")
+    } catch (error) {
+      console.error('Sign up failed:', error);
+      toast.error(error.response.data.message)
+    }
+  }
+)
 </script>
 
 <style>
