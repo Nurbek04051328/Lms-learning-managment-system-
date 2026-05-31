@@ -1,8 +1,16 @@
 import { useAuthStore } from "../modules/auth/store/auth.store";
 
 export function setupGuards(router) {
-  router.beforeEach((to) => {
+  router.beforeEach(async(to) => {
     const authStore = useAuthStore();
+
+    if (!authStore.initialized) {
+      try {
+        await authStore.getCurrentUser();
+      } catch (error) {
+        authStore.user = null;
+      }
+    }
 
     // Auth required
     if (
@@ -20,6 +28,7 @@ export function setupGuards(router) {
       return "/"
     }
 
+    // Role check
     if (
       to.meta.roles &&
       !to.meta.roles.includes(authStore.role)

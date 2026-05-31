@@ -9,16 +9,14 @@ export const useAuthStore = defineStore(
   {
     state: () => ({
       user: null,
-
-      accessToken: tokenService.getToken(),
-
+      
       loading: false,
-
+      
       initialized: false,
     }),
 
     getters: {
-      isAuthenticated: (state) => !!state.accessToken,
+      isAuthenticated: (state) => !!state.user,
 
       role: (state) => state.user?.role || null,
     },
@@ -28,17 +26,10 @@ export const useAuthStore = defineStore(
         try {
           this.loading = true;
 
-          const response = await authApi.login(payload);
+          await authApi.login(payload);
 
-          const { accessToken, user } = response.data;
-          
-          this.accessToken = accessToken;
+          await this.getCurrentUser();
 
-          this.user = user;
-
-          tokenService.setToken(accessToken);
-
-          return response.data;
         } catch (error){
           throw error;
         } finally {
@@ -50,17 +41,10 @@ export const useAuthStore = defineStore(
         try {
           this.loading = true;
 
-          const response = await authApi.signUp(payload);
+          await authApi.signUp(payload);
 
-          const { accessToken, user } = response.data;
+          await this.getCurrentUser();
 
-          this.accessToken = accessToken;
-
-          this.user = user;
-
-          tokenService.setToken(accessToken);
-
-          return response.data;
         } catch (error){
           throw error;
         } finally {
@@ -68,17 +52,37 @@ export const useAuthStore = defineStore(
         } 
       },
 
-      logout() {
-        this.user = null;
+      async getCurrentUser() {
+        try {
 
-        this.accessToken = null;
+          const response =
+            await authApi.currentUser();
 
-        tokenService.removeToken();
+          this.user = response.data;
+
+          return response.data;
+        } catch (error) {
+          this.user = null;
+
+          throw error;
+        } finally {
+          this.initialized = true;
+        }
+      },
+
+      async logout() {
+        try {
+          await authApi.logout();
+          
+        }  finally {
+          this.user = null;
+          this.initialized = false;
+        }
       }
     },
     
     persist: {
-      path: ["user", "accessToken"],
+      paths: ["user"],
     }
   }
 )

@@ -26,47 +26,13 @@
           placeholder="Enter your email"
           :error="emailError"
         />
-        <basePassword
+        <BasePassword
           v-model="password"
           label="Password"
           className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
           placeholder="Enter your password"
           :error="passwordError"
         />
-        <!-- <div class="flex flex-col gap-1 w-[80%] items-start justify-center px-3">
-          <label htmlFor="name" class="font-semibold"> Name</label>
-          <input
-            v-model="formData.name"
-            type="text"
-            id="name"
-            class="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px]"
-            placeholder="Enter your name"
-          />
-        </div> -->
-        <!-- <div class="flex flex-col gap-1 w-[80%] items-start justify-center px-3">
-          <label htmlFor="email" class="font-semibold"> Email</label>
-          <input
-            v-model="formData.email"
-            type="email"
-            id="email"
-            class="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px]"
-            placeholder="Enter your email"
-          />
-        </div> -->
-        <!-- <div class="flex flex-col gap-1 w-[80%] items-start justify-center px-3 relative">
-          <label htmlFor="password" class="font-semibold"> Password</label>
-          <input
-            v-model="formData.password"
-            :type="showpassword ? 'text' : 'password'"
-            id="password"
-            class="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px]"
-            placeholder="Enter your password"
-          />
-          <i 
-            :class="showpassword ? 'pi pi-eye-slash' : 'pi pi-eye'" @click="showpassword = !showpassword" 
-            class="absolute  cursor-pointer right-[20px] bottom-[10%]"
-          ></i>
-        </div> -->
         <div class="flex md:w-[50%] w-[70%] items-center justify-between">
           <button
             type="button"
@@ -92,37 +58,8 @@
           >
             Educator
           </button>
-          <!-- <span 
-            @click="selectRole('student')"
-            :class="
-              selectedRole === 'student'
-                ? 'border-black  text-black'
-                : 'border-[#e7e6e6]'
-            "
-            class="px-[10px] py-[5px] border-[2px] rounded-xl cursor-pointer"
-          >
-            Student
-          </span>
-          <span  
-            @click="selectRole('educator')"
-            :class="
-              selectedRole === 'educator'
-                ? 'border-black  text-black'
-                : 'border-[#e7e6e6]'
-            "
-            class="px-[10px] py-[5px] border-[2px] rounded-xl cursor-pointer"
-          >
-            Educator
-          </span> -->
         </div>
 
-        <!-- <button
-          type="submit"
-          :disabled="loading"
-          class="w-[80%] h-[40px] bg-black text-white cursor-pointer flex items-center justify-center rounded-[5px]"
-        >
-          {{ loading ? 'Loading...' : 'Sign Up' }}
-        </button> -->
         <BaseButton
           type="submit"
           text="Sign Up"
@@ -175,7 +112,7 @@ const router = useRouter();
 const toast = useToast();
 
 const { handleSubmit } = useRegisterForm();
-const { register, loading } = useAuth();
+const { signUp, loading } = useAuth();
 const { 
   value: name,
   errorMessage: nameError,
@@ -196,7 +133,7 @@ const {
 const onSubmit = handleSubmit(
   async (values) => {
     try {
-      await register(values);
+      await signUp(values);
       router.push("/");
       toast.success("SignUp Successfully")
     } catch (error) {
