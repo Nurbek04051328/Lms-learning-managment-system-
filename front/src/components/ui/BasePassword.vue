@@ -1,10 +1,13 @@
 <template>
-  <div class="flex flex-col gap-1 w-[80%] items-start justify-center px-3">
+  <div 
+    class="flex flex-col gap-1 items-start justify-center"
+    :class="divClassname"
+  >
     <label class="font-semibold">
       {{ label }}
     </label>
 
-    <div class="relative w-full">
+    <div class="relative w-[100%]">
       <input 
         :type="
           showPassword 
@@ -47,6 +50,7 @@ defineProps({
   modelValue: String,
   label: String,
   className: String,
+  divClassname: String,
   placeholder: String,
   error: String,
 });

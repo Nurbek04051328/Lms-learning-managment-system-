@@ -59,7 +59,7 @@ export const useAuthStore = defineStore(
             await authApi.currentUser();
 
           this.user = response.data;
-
+          
           return response.data;
         } catch (error) {
           this.user = null;
@@ -67,6 +67,36 @@ export const useAuthStore = defineStore(
           throw error;
         } finally {
           this.initialized = true;
+        }
+      },
+
+      async sendOtp(payload) {
+        console.log("payload", payload);
+        
+        return authApi.sendOtp(payload);
+      },
+
+      async verifyOtp(payload) {
+        console.log("payload", payload);
+        return authApi.verifyOtp(payload);
+      },
+
+      async resetPassword(payload) {
+        return authApi.resetPassword(payload);
+      },
+
+      async googleAuth(payload) {
+        try {
+          this.loading = true;
+
+          await authApi.googleAuth(payload);
+
+          await this.getCurrentUser();
+
+        } catch (error){
+          throw error;
+        } finally {
+          this.loading = false;
         }
       },
 
@@ -81,8 +111,6 @@ export const useAuthStore = defineStore(
       }
     },
     
-    persist: {
-      paths: ["user"],
-    }
+    persist: true
   }
 )

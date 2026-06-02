@@ -21,5 +21,13 @@ export function useAuth() {
     signUp: authStore.signUp,
 
     logout: authStore.logout,
+
+    sendOtp: authStore.sendOtp,
+
+    verifyOtp: authStore.verifyOtp,
+
+    googleAuth: authStore.googleAuth,
+    
+    resetPassword: authStore.resetPassword,
   }
 }

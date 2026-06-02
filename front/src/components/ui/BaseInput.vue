@@ -1,5 +1,8 @@
 <template>
-  <div class="flex flex-col gap-1 w-[80%] items-start justify-center px-3">
+  <div 
+    class="flex flex-col gap-1 items-start justify-center" 
+    :class="divClassname"
+  >
     <label class="font-semibold">
       {{ label }}
     </label>
@@ -37,6 +40,7 @@ defineProps({
     required: false,
   },
   className: String,
+  divClassname: String,
   type: {
     type: String,
     default: "text",

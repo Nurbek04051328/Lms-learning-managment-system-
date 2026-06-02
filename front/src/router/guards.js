@@ -4,7 +4,10 @@ export function setupGuards(router) {
   router.beforeEach(async(to) => {
     const authStore = useAuthStore();
 
-    if (!authStore.initialized) {
+    if (
+      !authStore.initialized &&
+      document.cookie.includes("token")
+    ) {
       try {
         await authStore.getCurrentUser();
       } catch (error) {

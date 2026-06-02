@@ -15,6 +15,14 @@ const authRoutes = [
       guest: true,
     },
   },
+  {
+    path: "/forgot-password",
+    component: () => import("../pages/ForgotPasswordPage.vue"),
+    meta: {
+      layout: "auth",
+      guest: true,
+    },
+  },
 ];
 
 export default authRoutes;

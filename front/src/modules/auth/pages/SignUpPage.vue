@@ -16,6 +16,7 @@
           v-model="name"
           label="Name"
           className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
+          divClassname="w-[80%]"
           placeholder="Enter your name"
           :error="nameError"
         />
@@ -23,6 +24,7 @@
           v-model="email"
           label="Email"
           className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
+          divClassname="w-[80%]"
           placeholder="Enter your email"
           :error="emailError"
         />
@@ -30,6 +32,7 @@
           v-model="password"
           label="Password"
           className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
+          divClassname="w-[80%]"
           placeholder="Enter your password"
           :error="passwordError"
         />
@@ -71,10 +74,10 @@
           <div class="w-[50%] text-[15px] text-[#6f6f6f] flex items-center justify-center">Or continue</div>
           <div class="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
         </div>
-        <div class="w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center">
+        <button class="w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center cursor-pointer" @click="googleSignIn">
           <img src="../../../assets/google.jpg" alt="Google" class="w-[25px]" />
           <span class="text-[18px] text-gray-500">oogle</span>
-        </div>
+        </button>
         <div class="text-[#6f6f6f]">already have an account? 
           <router-link 
             to="/login" 
@@ -99,6 +102,8 @@
 import { ref, reactive } from 'vue';
 import { useRouter } from "vue-router";
 import { useField } from "vee-validate";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from '../../../../utils/firebase.js';
 
 import BaseInput from "../../../components/ui/BaseInput.vue";
 import BasePassword from "../../../components/ui/BasePassword.vue";
@@ -112,7 +117,7 @@ const router = useRouter();
 const toast = useToast();
 
 const { handleSubmit } = useRegisterForm();
-const { signUp, loading } = useAuth();
+const { signUp, loading, googleAuth } = useAuth();
 const { 
   value: name,
   errorMessage: nameError,
@@ -142,6 +147,22 @@ const onSubmit = handleSubmit(
     }
   }
 )
+
+const googleSignIn = async () => {
+  try {
+    const response = await signInWithPopup(auth, provider);
+    let user = response.user;
+    let Gname = user.displayName;
+    let Gemail = user.email;
+
+    await googleAuth({ name: Gname, email: Gemail, role:role.value });
+    router.push("/");
+    toast.success("Login Successfully")
+  } catch (error) {
+    console.error('Google Sign-In failed:', error);
+    toast.error(error.response.data.message)
+  }
+}
 </script>
 
 <style>

@@ -13,6 +13,16 @@ const studentRoutes = [
       roles: ["student"],
     },
   },
+  {
+    path: "/profile",
+    component: () =>
+      import("../pages/ProfilePage.vue"),
+
+    meta: {
+      layout: "dashboard",
+      requiresAuth: true,
+    },
+  },
 ];
 
 export default studentRoutes;

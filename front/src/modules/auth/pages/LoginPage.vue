@@ -2,7 +2,7 @@
   <div class="bg-[#dddbdb] w-[100vw] h-[100vh] flex items-center justify-center gap-3">
     <form 
       @submit.prevent="onSubmit"
-      class="w-[90%] md:w-200 h-150 bg-white shadow-xl rounded-2xl flex"
+      class="w-full md:w-200 h-150 bg-white shadow-xl rounded-2xl flex"
     >
       <!-- left -->
       <div
@@ -16,6 +16,7 @@
           v-model="email"
           label="Email"
           className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
+          divClassname="w-[80%]"
           placeholder="Enter your email"
           :error="emailError"
         />
@@ -23,6 +24,7 @@
           v-model="password"
           label="Password"
           className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
+          divClassname="w-[80%]"
           placeholder="Enter your password"
           :error="passwordError"
         />
@@ -33,22 +35,28 @@
           :loading="loading"
           className="w-[80%] h-[40px] bg-black text-white cursor-pointer flex items-center justify-center rounded-md"
         />
-        <span class="text-[13px] cursor-pointer text-[#585757]">Forgot your password?</span>
+        <router-link 
+          to="/forgot-password" 
+          class="text-[13px] cursor-pointer text-[#585757]"
+        >
+          Forgot your password?
+        </router-link>
         <div class="w-[80%] flex items-center gap-2">
           <div class="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
           <div class="w-[50%] text-[15px] text-[#6f6f6f] flex items-center justify-center">Or continue</div>
           <div class="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
         </div>
-        <div class="w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center">
+        <button class="w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center cursor-pointer" @click="googleLogin"
+        >
           <img src="../../../assets/google.jpg" alt="Google" class="w-[25px]" />
           <span class="text-[18px] text-gray-500">oogle</span>
-        </div>
-        <div class="text-[#6f6f6f]">create new account 
+        </button>
+        <div class="text-[#6f6f6f]">Create new account 
           <router-link 
             to="/signup" 
             class="underline underline-offset-1 text-black"
           >
-            Login
+            Register
           </router-link>
         </div>
       </div>
@@ -67,6 +75,8 @@
 import { ref } from 'vue';
 import { useRouter } from "vue-router";
 import { useField } from "vee-validate";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from '../../../../utils/firebase.js';
 
 import BaseInput from "../../../components/ui/BaseInput.vue";
 import BasePassword from "../../../components/ui/BasePassword.vue";
@@ -80,7 +90,7 @@ const router = useRouter();
 const toast = useToast();
 
 const { handleSubmit } = useLoginForm();
-const { login, loading } = useAuth();
+const { login, loading, googleAuth } = useAuth();
 
 const { 
   value: email,
@@ -95,6 +105,7 @@ const onSubmit = handleSubmit(
   async (values) => {
     try {
       await login(values);
+      console.log("LOGIN SUCCESS");
       router.push("/");
       toast.success("Login Successfully")
     } catch (error) {
@@ -103,6 +114,32 @@ const onSubmit = handleSubmit(
     }
   }
 )
+
+const googleLogin = async () => {
+  try {
+    const firebaseRes = await signInWithPopup(auth, provider);
+
+    const user = firebaseRes.user;
+
+    const Gname = user.displayName || "User";
+    const Gemail = user.email;
+
+    const res = await googleAuth({
+      name: Gname,
+      email: Gemail,
+      role: ""
+    });
+
+    if (res.status === 201) {
+      toast.success("Login Successfully");
+      // await router.push("/");
+    }
+
+  } catch (error) {
+    console.error("Google Sign-In failed:", error);
+    toast.error(error?.response?.data?.message || error.message);
+  }
+};
 
 </script>
 
