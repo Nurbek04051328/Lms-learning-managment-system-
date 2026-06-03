@@ -89,10 +89,11 @@ export const useAuthStore = defineStore(
         try {
           this.loading = true;
 
-          await authApi.googleAuth(payload);
+          const res = await authApi.googleAuth(payload);
 
           await this.getCurrentUser();
 
+          return res;
         } catch (error){
           throw error;
         } finally {

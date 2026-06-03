@@ -33,7 +33,7 @@
           type="submit"
           text="Login"
           :loading="loading"
-          className="w-[80%] h-[40px] bg-black text-white cursor-pointer flex items-center justify-center rounded-md"
+          className="w-[80%] h-[40px] bg-[#44B55F] text-white cursor-pointer flex items-center justify-center rounded-md"
         />
         <router-link 
           to="/forgot-password" 
@@ -46,7 +46,7 @@
           <div class="w-[50%] text-[15px] text-[#6f6f6f] flex items-center justify-center">Or continue</div>
           <div class="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
         </div>
-        <button class="w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center cursor-pointer" @click="googleLogin"
+        <button type="button" class="w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center cursor-pointer" @click="googleLogin"
         >
           <img src="../../../assets/google.jpg" alt="Google" class="w-[25px]" />
           <span class="text-[18px] text-gray-500">oogle</span>
@@ -62,10 +62,9 @@
       </div>
       <!-- right -->
       <div
-        class="w-[50%] h-[100%] rounded-r-2xl bg-[black] md:flex flex-col items-center justify-center hidden"
+        class="w-[50%] h-[100%] rounded-r-2xl bg-green-100 md:flex flex-col items-center justify-center hidden"
       >
-        <img src="../../../assets/logo.jpg" alt="Logo" class="w-30 shadow-2xl" />
-        <span class="text-white text-2xl">VIRTUAL COURSES</span>
+        <img src="../../../assets/logo.png" alt="Logo" class="w-50 " />
       </div>
     </form>
   </div>
@@ -129,10 +128,12 @@ const googleLogin = async () => {
       email: Gemail,
       role: ""
     });
+    console.log("res", res);
+    
 
     if (res.status === 201) {
       toast.success("Login Successfully");
-      // await router.push("/");
+      await router.push("/");
     }
 
   } catch (error) {

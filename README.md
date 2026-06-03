@@ -24,10 +24,12 @@ This project is designed with a **scalable, modular, and production-ready archit
 ---
 
 ## 📁 Project Structure
+```
 lms/
 │
 ├── front/ # Vue 3 frontend (LMS UI)
 ├── backend/ # Node.js backend (API server)
+```
 
 
 ---
@@ -81,19 +83,26 @@ lms/
 ```bash
 git clone https://github.com/Nurbek04051328/Lms-learning-managment-system-.git
 cd lms
-
-2. Frontend setup
+```
+### 2. Frontend setup
 cd front
 npm install
 npm run dev
-3. Backend setup
+### 3. Backend setup
 cd backend
 npm install
 npm run dev
-🌐 Environment Variables
-Backend (.env)
+
+---
+
+## 🌐 Environment Variables
+### Backend (.env)
+```
 PORT=5000
 MONGO_URI=your_mongodb_url
 JWT_SECRET=your_secret_key
-Frontend (.env)
-VITE_API_URL=http://localhost:5173
+```
+### Frontend (.env)
+```
+VITE_API_URL=http://localhost:5173`
+```

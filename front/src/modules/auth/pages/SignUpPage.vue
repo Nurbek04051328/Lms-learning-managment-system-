@@ -43,7 +43,7 @@
             class="px-[10px] py-[5px] border-[2px] rounded-xl cursor-pointer"
             :class="
               role === 'student'
-                ? 'border-black  text-black'
+                ? 'border-[#44B55F]  text-black'
                 : 'border-[#e7e6e6]'
             "
           >
@@ -55,7 +55,7 @@
             class="px-[10px] py-[5px] border-[2px] rounded-xl cursor-pointer"
             :class="
               role === 'educator'
-                ? 'border-black  text-black'
+                ? 'border-[#44B55F]  text-black'
                 : 'border-[#e7e6e6]'
             "
           >
@@ -67,14 +67,14 @@
           type="submit"
           text="Sign Up"
           :loading="loading"
-          className="w-[80%] h-[40px] bg-black text-white cursor-pointer flex items-center justify-center rounded-md"
+          className="w-[80%] h-[40px] bg-[#44B55F] text-white cursor-pointer flex items-center justify-center rounded-md"
         />
         <div class="w-[80%] flex items-center gap-2">
           <div class="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
           <div class="w-[50%] text-[15px] text-[#6f6f6f] flex items-center justify-center">Or continue</div>
           <div class="w-[25%] h-[0.5px] bg-[#c4c4c4]"></div>
         </div>
-        <button class="w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center cursor-pointer" @click="googleSignIn">
+        <button type="button" class="w-[80%] h-[40px] border-1 border-black rounded-[5px] flex items-center justify-center cursor-pointer" @click="googleSignIn">
           <img src="../../../assets/google.jpg" alt="Google" class="w-[25px]" />
           <span class="text-[18px] text-gray-500">oogle</span>
         </button>
@@ -89,10 +89,9 @@
       </div>
       <!-- right -->
       <div
-        class="w-[50%] h-[100%] rounded-r-2xl bg-[black] md:flex flex-col items-center justify-center hidden"
+        class="w-[50%] h-[100%] rounded-r-2xl bg-green-100 md:flex flex-col items-center justify-center hidden"
       >
-        <img src="../../../assets/logo.jpg" alt="Logo" class="w-30 shadow-2xl" />
-        <span class="text-white text-2xl">VIRTUAL COURSES</span>
+        <img src="../../../assets/logo.png" alt="Logo" class="w-50" />
       </div>
     </form>
   </div>
@@ -151,6 +150,8 @@ const onSubmit = handleSubmit(
 const googleSignIn = async () => {
   try {
     const response = await signInWithPopup(auth, provider);
+    console.log("signUpResponse", response);
+    
     let user = response.user;
     let Gname = user.displayName;
     let Gemail = user.email;

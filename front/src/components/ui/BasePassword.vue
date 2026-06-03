@@ -14,6 +14,7 @@
           ? 'text' 
           : 'password'
         "
+        autocomplete="current-password"
         :value="modelValue"
         :placeholder="placeholder"
         @input="

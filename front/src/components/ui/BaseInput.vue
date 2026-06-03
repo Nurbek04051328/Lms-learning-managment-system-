@@ -11,6 +11,7 @@
       :type="type" 
       :value="modelValue"
       :placeholder="placeholder"
+      autocomplete="username"
       @input="
         emit(
           'update:modelValue', 

@@ -15,7 +15,14 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: function () {
+      return this.authProvider === "local";
+    }
+  },
+  authProvider: {
+    type: String,
+    enum: ["local", "google"],
+    default: "local",
   },
   role: {
     type: String,
@@ -29,7 +36,17 @@ const userSchema = new mongoose.Schema({
   enrolledCourses: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Course",
-  }]
+  }],
+  resetOtp: {
+    type: String,
+  },
+  otpExpires: {
+    type: Date,
+  },
+  isOtpVerifed: {
+    type: Boolean,
+    default: false,
+  }
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
