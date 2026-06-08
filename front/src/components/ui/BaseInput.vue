@@ -11,6 +11,7 @@
       :type="type" 
       :value="modelValue"
       :placeholder="placeholder"
+      :disabled="disabled"
       autocomplete="username"
       @input="
         emit(
@@ -42,10 +43,10 @@ defineProps({
   },
   className: String,
   divClassname: String,
+  disabled: Boolean,
   type: {
     type: String,
     default: "text",
-    required: false,
   },
   placeholder: String,
   error: String,

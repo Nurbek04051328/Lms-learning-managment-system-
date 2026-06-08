@@ -57,7 +57,8 @@ export const useAuthStore = defineStore(
 
           const response =
             await authApi.currentUser();
-
+          console.log("getcurrent user ",response.data);
+          
           this.user = response.data;
           
           return response.data;

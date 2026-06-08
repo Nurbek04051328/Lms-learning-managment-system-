@@ -17,7 +17,7 @@ export const useProfileStore =
             await profileApi.updateProfile(
               payload
             );
-
+          
           return res;
         } catch (error) {
           throw error;

@@ -1,8 +1,8 @@
 <template>
   <button
-  :type="type"
-  :disabled="loading"
-  :class="className"
+    :type="type"
+    :disabled="loading"
+    :class="className"
   >
     {{ loading ? "Loading..." : text }}
   </button>

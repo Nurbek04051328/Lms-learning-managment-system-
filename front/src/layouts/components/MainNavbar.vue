@@ -12,7 +12,15 @@
           @click="toggleProfileMenu"
           class="flex items-center gap-2"
         >
-          <div class="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center tex-[20px] border-2 bg-black border-white cursor-pointer">
+          <img
+            v-if="user?.photoUrl"
+            :src="user.photoUrl" 
+            alt="User img"
+            class="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center tex-[20px] border-2 bg-black border-white cursor-pointer"
+          >
+          <div
+            v-else
+            class="w-[50px] h-[50px] rounded-full text-white flex items-center justify-center tex-[20px] border-2 bg-black border-white cursor-pointer">
             {{ user?.name.slice(0,1).toUpperCase() }}
           </div>
 

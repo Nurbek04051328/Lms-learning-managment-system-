@@ -29,5 +29,7 @@ export function useAuth() {
     googleAuth: authStore.googleAuth,
     
     resetPassword: authStore.resetPassword,
+
+    getCurrentUser: authStore.getCurrentUser,
   }
 }

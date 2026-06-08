@@ -10,7 +10,11 @@
       <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">
         Edit Profile
       </h2>
-      <form action="" class="space-y-5">
+      <form 
+        action="" 
+        class="space-y-5"
+        @submit.prevent="onSubmit"
+      >
         <div class="flex flex-col items-center text-center">
           <img 
             v-if="user?.photoUrl"
@@ -32,8 +36,8 @@
           <input 
             id="image" 
             type="file" 
-            v-model="photoUrl"
             accept="image/*"
+            @change="handleImageChange"
             placeholder="Choose File No file chosen"
             class="w-full px-4 py-2 border rounded-md text-sm"
           />
@@ -45,13 +49,14 @@
             className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
             divClassname="w-[80%]"
             placeholder="Enter your name"
-            :error="emailError"
+            :error="nameError"
           />
         </div>
         <div>
           <BaseInput
             v-model="email"
             label="Email"
+            disabled
             className="border-1 w-[100%] h-[35px] border-[#e7e6e6] text-[15px] px-[20px] rounded-md"
             divClassname="w-[80%]"
             placeholder="Enter your email"
@@ -59,8 +64,8 @@
           />
         </div>
         <div>
-          <label htmlFor="image" class="text-sm font-medium text-gray-700">
-            Dio
+          <label class="text-sm font-medium text-gray-700">
+            Bio
           </label>
           <textarea 
             rows="3"
@@ -69,29 +74,40 @@
             class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md resize-none focus:ring-2 focus:ring-black"
           ></textarea>
         </div>
-        <button class="w-full bg-black active:bg-[#454545] text-white py-2 rounded-md font-medium transition cursor-pointer">Save Changes</button>
+          <BaseButton
+            type="submit"
+            text="Save Changes"
+            :loading="loading"
+            className="w-full bg-black active:bg-[#454545] text-white py-2 rounded-md font-medium transition cursor-pointer"
+          />
       </form>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch  } from "vue";
+import { ref, watch, onMounted } from "vue";
+import { useField } from "vee-validate";
 import { useRouter } from "vue-router";
 import BaseInput from "../../../components/ui/BaseInput.vue";
+import BaseButton from "../../../components/ui/BaseButton.vue";
 
 import { useAuth } from "../../auth/composables/useAuth";
+import { useProfile } from "../composables/useProfile";
 import { useToast } from "../../../composables/useToast.js";
 
 const router = useRouter();
 const toast = useToast();
 
-const { user, updateProfile, loading } = useAuth();
+const { user, getCurrentUser } = useAuth();
+const { updateProfile, loading } = useProfile();
 
 const {
   value: name,
   errorMessage: nameError,
-} = useField("name");
+} = useField("name", undefined, {
+  initialValue: ""
+});
 
 const {
   value: description,
@@ -100,14 +116,60 @@ const {
 
 const {
   value: email,
-} = useField("email");
+  errorMessage: emailError,
+} = useField("email", undefined, {
+  initialValue: ""
+});
 
 const photoUrl = ref(null);
 useField("photoUrl");
 
 const handleImageChange = (e) => {
-  photo.value = e.target.files?.[0];
+  photoUrl.value = e.target.files?.[0];
 };
+
+const onSubmit = async () => {
+  try {
+    const formData = new FormData();
+
+    formData.append("name", name.value);
+    formData.append(
+      "description",
+      description.value || ""
+    );
+
+    if (photoUrl.value) {
+      formData.append(
+        "photoUrl",
+        photoUrl.value
+      );
+    }
+
+    await updateProfile(formData);
+    await getCurrentUser();
+
+    router.push("/");
+    toast.success(
+      "Profile updated successfully"
+    );
+
+  } catch (error) {
+    toast.error(
+      error?.response?.data?.message
+    );
+  }
+};
+
+onMounted(() => {
+  if (user.value) {
+    name.value = user.value.name;
+    email.value = user.value.email;
+    description.value =
+      user.value.description || "";
+  }
+});
+
+
 </script>
 
 <style>

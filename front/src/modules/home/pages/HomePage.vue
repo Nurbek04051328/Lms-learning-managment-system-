@@ -20,10 +20,12 @@
       </div>
     </div>
     <MainLogos/>
+    <ExploreCourses/>
 </template>
 
 <script lang="ts" setup>
 import MainNavbar from '../../../layouts/components/MainNavbar.vue';
+import ExploreCourses from '../components/ExploreCourses.vue';
 import MainLogos from '../components/MainLogos.vue';
 
 
