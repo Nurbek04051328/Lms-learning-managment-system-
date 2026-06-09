@@ -16,58 +16,58 @@
     <div class="w-[720px] max-w-[90%] lg:h-[300px] md:min-h-[300px] flex items-center justify-center lg:gap-[60px] gap-[50px] flex-wrap mb-[50px] lg:mb-[0px]">
       <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
         <div class="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-          <i class="pi pi-desktop text-6xl text-[#6d6c6c]" ></i>
+          <i class="pi pi-desktop text-5xl text-[#6d6c6c]" ></i>
         </div>
-        Web Development
+        Web Dev
       </div>
 
       <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
         <div class="w-[100px] h-[90px] bg-[#d9fbe0] rounded-lg flex items-center justify-center">
-          <i class="pi pi-desktop text-6xl text-[#6d6c6c]" ></i>
+          <i class="pi pi-palette text-5xl text-[#6d6c6c]" ></i>
         </div>
         UI/UX Designing
       </div>
 
       <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-        <div class="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-          <i class="pi pi-desktop text-6xl text-[#6d6c6c]" ></i>
+        <div class="w-[100px] h-[90px] bg-[#fcb9c8] rounded-lg flex items-center justify-center">
+          <i class="pi pi-tablet text-5xl text-[#6d6c6c]" ></i>
         </div>
-        Web Development
+        App dev
       </div>
 
       <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
         <div class="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-          <i class="pi pi-desktop text-6xl text-[#6d6c6c]" ></i>
+          <i class="pi pi-chart-scatter text-5xl text-[#6d6c6c]" ></i>
         </div>
-        Web Development
+        Ethical hacking
+      </div>
+
+      <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
+        <div class="w-[100px] h-[90px] bg-[#d9fbe0] rounded-lg flex items-center justify-center">
+          <i class="pi pi-microchip-ai text-5xl text-[#6d6c6c]" ></i>
+        </div>
+        AI/ML
+      </div>
+
+      <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
+        <div class="w-[100px] h-[90px] bg-[#fcb9c8] rounded-lg flex items-center justify-center">
+          <i class="pi pi-database text-5xl text-[#6d6c6c]" ></i>
+        </div>
+        Data Science
       </div>
 
       <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
         <div class="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-          <i class="pi pi-desktop text-6xl text-[#6d6c6c]" ></i>
+          <i class="pi pi-chart-bar text-5xl text-[#6d6c6c]" ></i>
         </div>
-        Web Development
+        Data Analytics
       </div>
 
       <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-        <div class="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-          <i class="pi pi-desktop text-6xl text-[#6d6c6c]" ></i>
+        <div class="w-[100px] h-[90px] bg-[#d9fbe0] rounded-lg flex items-center justify-center">
+          <i class="pi pi-box text-5xl text-[#6d6c6c]" ></i>
         </div>
-        Web Development
-      </div>
-
-      <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-        <div class="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-          <i class="pi pi-desktop text-6xl text-[#6d6c6c]" ></i>
-        </div>
-        Web Development
-      </div>
-
-      <div class="w-[100px] h-[130px] font-light text-[13px] flex flex-col gap-3 text-center">
-        <div class="w-[100px] h-[90px] bg-[#fbd9fb] rounded-lg flex items-center justify-center">
-          <i class="pi pi-desktop text-6xl text-[#6d6c6c]" ></i>
-        </div>
-        Web Development
+        AI Tools
       </div>
     </div>
   </div>
